@@ -35,13 +35,13 @@ def faulhaber_sum(n, p):
     result = sum(sp.binomial(p + 1, k) * B[k] * n**(p + 1 - k) / (p + 1) for k in range(p + 1))
     return result
 
-def arithmetic_series_sum(a, d, n):
-    """Sum of Arithmetic Series: a, a+d, a+2d, ..., a+(n-1)d"""
-    return n * (2*a + (n-1)*d) // 2
+def permutation(n, r):
+    """Permutation Calculation: P(n, r)"""
+    return math.factorial(n) // math.factorial(n - r)
 
-def geometric_series_sum(a, r, n):
-    """Sum of Geometric Series: a, ar, ar^2, ..., ar^(n-1)"""
-    return a * (1 - r**n) // (1 - r)
+def combination(n, r):
+    """Combination Calculation: C(n, r)"""
+    return math.factorial(n) // (math.factorial(r) * math.factorial(n - r))
 
 def fibonacci(n):
     """nth Fibonacci Number"""
@@ -69,14 +69,36 @@ def lcm(a, b):
     """Least Common Multiple (LCM)"""
     return a * b // gcd(a, b)
 
+def log_base_b(x, b):
+    """Logarithm Calculation: log_b(x)"""
+    return math.log(x, b)
+
+def exp_function(x):
+    """Exponential Function: e^x"""
+    return math.exp(x)
+
+def trig_functions(angle, func):
+    """Trigonometric Functions: sin, cos, tan"""
+    if func == 'sin':
+        return math.sin(math.radians(angle))
+    elif func == 'cos':
+        return math.cos(math.radians(angle))
+    elif func == 'tan':
+        return math.tan(math.radians(angle))
+    else:
+        return "Geçersiz fonksiyon"
+
 def complex_operations_menu():
     while True:
-        print("\nKompleks Sayılar Alt Menüsü:")
-        print("1. Kompleks Sayı Toplama")
-        print("2. Kompleks Sayı Çıkarma")
-        print("3. Kompleks Sayı Çarpma")
-        print("4. Kompleks Sayı Bölme")
-        print("5. Ana Menüye Dön")
+        print("╔══════════════════════════════════════════════════╗")
+        print("║            Kompleks Sayılar Alt Menüsü           ║")
+        print("╠══════════════════════════════════════════════════╣")
+        print("║ 1. Kompleks Sayı Toplama                         ║")
+        print("║ 2. Kompleks Sayı Çıkarma                         ║")
+        print("║ 3. Kompleks Sayı Çarpma                          ║")
+        print("║ 4. Kompleks Sayı Bölme                           ║")
+        print("║ 5. Ana Menüye Dön                                ║")
+        print("╚══════════════════════════════════════════════════╝")
 
         choice = input("Bir seçenek girin (1-5): ")
 
@@ -115,22 +137,28 @@ def complex_operations_menu():
 
 def menu():
     while True:
-        print("\nMatematik Denklemleri:")
-        print("1. Birinci Dereceden Denklem Çözücü")
-        print("2. İkinci Dereceden Denklem Çözücü")
-        print("3. Üçüncü Dereceden Denklem Çözücü")
-        print("4. Faktoriyel Hesapla")
-        print("5. Faulhaber Formülü ile Seri Toplamı")
-        print("6. Aritmetik Seri Toplamı")
-        print("7. Geometrik Seri Toplamı")
-        print("8. Fibonacci Sayısı Hesapla")
-        print("9. Asal Sayı Kontrolü")
-        print("10. En Büyük Ortak Bölen (GCD)")
-        print("11. En Küçük Ortak Kat (LCM)")
-        print("12. Kompleks Sayılar İşlemleri")
-        print("13. Çıkış")
+        print("╔══════════════════════════════════════════════════╗")
+        print("║                 Matematik Denklemleri            ║")
+        print("╠══════════════════════════════════════════════════╣")
+        print("║ 1. Birinci Dereceden Denklem Çözücü              ║")
+        print("║ 2. İkinci Dereceden Denklem Çözücü               ║")
+        print("║ 3. Üçüncü Dereceden Denklem Çözücü               ║")
+        print("║ 4. Faktoriyel Hesapla                            ║")
+        print("║ 5. Faulhaber Formülü ile Seri Toplamı            ║")
+        print("║ 6. Permütasyon Hesaplama                         ║")
+        print("║ 7. Kombinasyon Hesaplama                         ║")
+        print("║ 8. Fibonacci Sayısı Hesapla                      ║")
+        print("║ 9. Asal Sayı Kontrolü                            ║")
+        print("║ 10. En Büyük Ortak Bölen (GCD)                   ║")
+        print("║ 11. En Küçük Ortak Kat (LCM)                     ║")
+        print("║ 12. Logaritma Hesaplama                          ║")
+        print("║ 13. Üstel Fonksiyon Hesaplama                    ║")
+        print("║ 14. Trigonometrik Fonksiyon Hesaplama            ║")
+        print("║ 15. Kompleks Sayılar İşlemleri                   ║")
+        print("║ 16. Çıkış                                        ║")
+        print("╚══════════════════════════════════════════════════╝")
 
-        choice = input("Bir seçenek girin (1-13): ")
+        choice = input("Bir seçenek girin (1-16): ")
 
         if choice == '1':
             a = float(input("Denklemdeki a katsayısını girin (ax + b = 0): "))
@@ -158,15 +186,13 @@ def menu():
             p = int(input("Seri toplamındaki kuvveti girin: "))
             print("Seri Toplamı:", faulhaber_sum(n, p))
         elif choice == '6':
-            a = int(input("Aritmetik serinin ilk terimini girin: "))
-            d = int(input("Aritmetik serinin ortak farkını girin: "))
-            n = int(input("Aritmetik serideki terim sayısını girin: "))
-            print("Aritmetik Seri Toplamı:", arithmetic_series_sum(a, d, n))
+            n = int(input("Permütasyon hesaplaması için n değerini girin: "))
+            r = int(input("Permütasyon hesaplaması için r değerini girin: "))
+            print("Permütasyon:", permutation(n, r))
         elif choice == '7':
-            a = int(input("Geometrik serinin ilk terimini girin: "))
-            r = float(input("Geometrik serinin ortak oranını girin: "))
-            n = int(input("Geometrik serideki terim sayısını girin: "))
-            print("Geometrik Seri Toplamı:", geometric_series_sum(a, r, n))
+            n = int(input("Kombinasyon hesaplaması için n değerini girin: "))
+            r = int(input("Kombinasyon hesaplaması için r değerini girin: "))
+            print("Kombinasyon:", combination(n, r))
         elif choice == '8':
             n = int(input("Hesaplamak istediğiniz Fibonacci sayısının indeksini girin: "))
             print("Fibonacci Sayısı:", fibonacci(n))
@@ -182,8 +208,19 @@ def menu():
             b = int(input("LCM hesaplamak için ikinci sayıyı girin: "))
             print("LCM:", lcm(a, b))
         elif choice == '12':
-            complex_operations_menu()
+            x = float(input("Logaritmasını hesaplamak istediğiniz sayıyı girin: "))
+            b = float(input("Logaritma tabanını girin: "))
+            print("Logaritma:", log_base_b(x, b))
         elif choice == '13':
+            x = float(input("Üstel fonksiyon için x değerini girin (e^x): "))
+            print("Üstel Fonksiyon Sonucu:", exp_function(x))
+        elif choice == '14':
+            angle = float(input("Açıyı derece cinsinden girin: "))
+            func = input("Hangi trigonometrik fonksiyonu hesaplamak istiyorsunuz (sin, cos, tan): ")
+            print(f"{func}({angle}) = {trig_functions(angle, func)}")
+        elif choice == '15':
+            complex_operations_menu()
+        elif choice == '16':
             print("Çıkış yapılıyor...")
             break
         else:
