@@ -1,157 +1,193 @@
 import math
+import sympy as sp
 
-def main_menu():
-    print("MATEMATİK DENKLEMLERİ")
-    print("1 - Doğrusal Denklem (ax + b = 0)")
-    print("2 - İkinci Dereceden Denklem (ax^2 + bx + c = 0)")
-    print("3 - Üs Alma (a^b)")
-    print("4 - Logaritma (log_a(b))")
-    print("5 - Sinüs, Kosinüs, Tanjant (sin, cos, tan)")
-    print("6 - Permütasyon (P(n, r))")
-    print("7 - Kombinasyon (C(n, r))")
-    print("8 - Faktöriyel (n!)")
-    print("9 - Mutlak Değer (|x|)")
-    print("10 - Kareköklü Sayı (√x)")
-    print("11 - Faulhaber's Formülü ile Seri Toplamı (∑k^p)")
-    print("12 - Çıkış")
-    choice = input("Seçiminizi yapınız: ")
-    return choice
-
-def linear_equation():
-    print("Doğrusal Denklem: ax + b = 0")
-    a = float(input("a değerini giriniz: "))
-    b = float(input("b değerini giriniz: "))
-    if a == 0:
-        print("a değeri 0 olamaz.")
+def linear_solver(a, b):
+    """Linear Equation Solver: ax + b = 0"""
+    if a != 0:
+        return -b / a
     else:
-        x = -b / a
-        print(f"Denklemin çözümü: x = {x}")
+        return "No solution" if b != 0 else "Infinite solutions"
 
-def quadratic_equation():
-    print("İkinci Dereceden Denklem: ax^2 + bx + c = 0")
-    a = float(input("a değerini giriniz: "))
-    b = float(input("b değerini giriniz: "))
-    c = float(input("c değerini giriniz: "))
-    delta = b**2 - 4*a*c
-    if delta < 0:
-        print("Denklemin reel kökü yoktur.")
-    elif delta == 0:
-        x = -b / (2*a)
-        print(f"Denklemin tek kökü vardır: x = {x}")
+def quadratic_solver(a, b, c):
+    """Quadratic Equation Solver: ax^2 + bx + c = 0"""
+    d = b**2 - 4*a*c
+    if d >= 0:
+        root1 = (-b + math.sqrt(d)) / (2*a)
+        root2 = (-b - math.sqrt(d)) / (2*a)
+        return root1, root2
     else:
-        x1 = (-b + math.sqrt(delta)) / (2*a)
-        x2 = (-b - math.sqrt(delta)) / (2*a)
-        print(f"Denklemin iki kökü vardır: x1 = {x1}, x2 = {x2}")
+        return "Complex Roots", None
 
-def power():
-    print("Üs Alma: a^b")
-    a = float(input("a değerini giriniz: "))
-    b = float(input("b değerini giriniz: "))
-    result = a ** b
-    print(f"Sonuç: {a}^{b} = {result}")
+def cubic_solver(a, b, c, d):
+    """Cubic Equation Solver: ax^3 + bx^2 + cx + d = 0"""
+    x = sp.Symbol('x')
+    equation = a*x**3 + b*x**2 + c*x + d
+    roots = sp.solve(equation, x)
+    return roots
 
-def logarithm():
-    print("Logaritma: log_a(b)")
-    a = float(input("a (taban) değerini giriniz: "))
-    b = float(input("b (logaritma alınacak sayı) değerini giriniz: "))
-    if a <= 0 or a == 1 or b <= 0:
-        print("Geçersiz değerler. a > 0, a ≠ 1 ve b > 0 olmalıdır.")
-    else:
-        result = math.log(b, a)
-        print(f"Sonuç: log_{a}({b}) = {result}")
+def factorial(n):
+    """Factorial of a Number"""
+    return math.factorial(n)
 
-def trig_functions():
-    print("Trigonometrik Fonksiyonlar: sin, cos, tan")
-    angle = float(input("Açıyı derece cinsinden giriniz: "))
-    radian = math.radians(angle)
-    sin_value = math.sin(radian)
-    cos_value = math.cos(radian)
-    tan_value = math.tan(radian)
-    print(f"sin({angle}) = {sin_value}")
-    print(f"cos({angle}) = {cos_value}")
-    print(f"tan({angle}) = {tan_value}")
+def faulhaber_sum(n, p):
+    """Faulhaber Formula for Sum of Powers using Faulhaber Algorithm"""
+    B = [sp.bernoulli(i) for i in range(p+1)]
+    result = sum(sp.binomial(p + 1, k) * B[k] * n**(p + 1 - k) / (p + 1) for k in range(p + 1))
+    return result
 
-def permutation():
-    print("Permütasyon: P(n, r)")
-    n = int(input("n değerini giriniz: "))
-    r = int(input("r değerini giriniz: "))
-    if n < r:
-        print("n, r'den büyük veya eşit olmalıdır.")
-    else:
-        result = math.factorial(n) // math.factorial(n - r)
-        print(f"Sonuç: P({n}, {r}) = {result}")
+def arithmetic_series_sum(a, d, n):
+    """Sum of Arithmetic Series: a, a+d, a+2d, ..., a+(n-1)d"""
+    return n * (2*a + (n-1)*d) // 2
 
-def combination():
-    print("Kombinasyon: C(n, r)")
-    n = int(input("n değerini giriniz: "))
-    r = int(input("r değerini giriniz: "))
-    if n < r:
-        print("n, r'den büyük veya eşit olmalıdır.")
-    else:
-        result = math.factorial(n) // (math.factorial(r) * math.factorial(n - r))
-        print(f"Sonuç: C({n}, {r}) = {result}")
+def geometric_series_sum(a, r, n):
+    """Sum of Geometric Series: a, ar, ar^2, ..., ar^(n-1)"""
+    return a * (1 - r**n) // (1 - r)
 
-def factorial():
-    print("Faktöriyel: n!")
-    n = int(input("n değerini giriniz: "))
-    if n < 0:
-        print("n negatif olamaz.")
-    else:
-        result = math.factorial(n)
-        print(f"Sonuç: {n}! = {result}")
+def fibonacci(n):
+    """nth Fibonacci Number"""
+    a, b = 0, 1
+    for _ in range(n):
+        a, b = b, a + b
+    return a
 
-def absolute_value():
-    print("Mutlak Değer: |x|")
-    x = float(input("x değerini giriniz: "))
-    result = abs(x)
-    print(f"Sonuç: |{x}| = {result}")
+def prime_check(n):
+    """Check if a Number is Prime"""
+    if n <= 1:
+        return False
+    for i in range(2, int(math.sqrt(n)) + 1):
+        if n % i == 0:
+            return False
+    return True
 
-def square_root():
-    print("Kareköklü Sayı: √x")
-    x = float(input("x değerini giriniz: "))
-    if x < 0:
-        print("x negatif olamaz.")
-    else:
-        result = math.sqrt(x)
-        print(f"Sonuç: √{x} = {result}")
+def gcd(a, b):
+    """Greatest Common Divisor (GCD)"""
+    while b:
+        a, b = b, a % b
+    return a
 
-def faulhaber_sum():
-    print("Faulhaber's Formülü ile Seri Toplamı: ∑k^p")
-    n = int(input("n (serinin son terimi) değerini giriniz: "))
-    p = int(input("p (kuvvet) değerini giriniz: "))
-    result = sum(k**p for k in range(1, n+1))
-    print(f"Sonuç: ∑k^{p} (k=1 to {n}) = {result}")
+def lcm(a, b):
+    """Least Common Multiple (LCM)"""
+    return a * b // gcd(a, b)
 
-def main():
+def complex_operations_menu():
     while True:
-        choice = main_menu()
+        print("\nKompleks Sayılar Alt Menüsü:")
+        print("1. Kompleks Sayı Toplama")
+        print("2. Kompleks Sayı Çıkarma")
+        print("3. Kompleks Sayı Çarpma")
+        print("4. Kompleks Sayı Bölme")
+        print("5. Ana Menüye Dön")
+
+        choice = input("Bir seçenek girin (1-5): ")
+
         if choice == '1':
-            linear_equation()
+            real1 = float(input("Birinci sayının reel kısmı: "))
+            imag1 = float(input("Birinci sayının imaginer kısmı: "))
+            real2 = float(input("İkinci sayının reel kısmı: "))
+            imag2 = float(input("İkinci sayının imaginer kısmı: "))
+            result = complex(real1, imag1) + complex(real2, imag2)
+            print("Sonuç:", result)
         elif choice == '2':
-            quadratic_equation()
+            real1 = float(input("Birinci sayının reel kısmı: "))
+            imag1 = float(input("Birinci sayının imaginer kısmı: "))
+            real2 = float(input("İkinci sayının reel kısmı: "))
+            imag2 = float(input("İkinci sayının imaginer kısmı: "))
+            result = complex(real1, imag1) - complex(real2, imag2)
+            print("Sonuç:", result)
         elif choice == '3':
-            power()
+            real1 = float(input("Birinci sayının reel kısmı: "))
+            imag1 = float(input("Birinci sayının imaginer kısmı: "))
+            real2 = float(input("İkinci sayının reel kısmı: "))
+            imag2 = float(input("İkinci sayının imaginer kısmı: "))
+            result = complex(real1, imag1) * complex(real2, imag2)
+            print("Sonuç:", result)
         elif choice == '4':
-            logarithm()
+            real1 = float(input("Birinci sayının reel kısmı: "))
+            imag1 = float(input("Birinci sayının imaginer kısmı: "))
+            real2 = float(input("İkinci sayının reel kısmı: "))
+            imag2 = float(input("İkinci sayının imaginer kısmı: "))
+            result = complex(real1, imag1) / complex(real2, imag2)
+            print("Sonuç:", result)
         elif choice == '5':
-            trig_functions()
+            break
+        else:
+            print("Geçersiz seçenek. Lütfen tekrar deneyin.")
+
+def menu():
+    while True:
+        print("\nMatematik Denklemleri:")
+        print("1. Birinci Dereceden Denklem Çözücü")
+        print("2. İkinci Dereceden Denklem Çözücü")
+        print("3. Üçüncü Dereceden Denklem Çözücü")
+        print("4. Faktoriyel Hesapla")
+        print("5. Faulhaber Formülü ile Seri Toplamı")
+        print("6. Aritmetik Seri Toplamı")
+        print("7. Geometrik Seri Toplamı")
+        print("8. Fibonacci Sayısı Hesapla")
+        print("9. Asal Sayı Kontrolü")
+        print("10. En Büyük Ortak Bölen (GCD)")
+        print("11. En Küçük Ortak Kat (LCM)")
+        print("12. Kompleks Sayılar İşlemleri")
+        print("13. Çıkış")
+
+        choice = input("Bir seçenek girin (1-13): ")
+
+        if choice == '1':
+            a = float(input("a: "))
+            b = float(input("b: "))
+            root = linear_solver(a, b)
+            print("Çözüm:", root)
+        elif choice == '2':
+            a = float(input("a: "))
+            b = float(input("b: "))
+            c = float(input("c: "))
+            roots = quadratic_solver(a, b, c)
+            print("Kökler:", roots)
+        elif choice == '3':
+            a = float(input("a: "))
+            b = float(input("b: "))
+            c = float(input("c: "))
+            d = float(input("d: "))
+            roots = cubic_solver(a, b, c, d)
+            print("Kökler:", roots)
+        elif choice == '4':
+            n = int(input("n: "))
+            print("Faktoriyel:", factorial(n))
+        elif choice == '5':
+            n = int(input("n: "))
+            p = int(input("p: "))
+            print("Seri Toplamı:", faulhaber_sum(n, p))
         elif choice == '6':
-            permutation()
+            a = int(input("İlk terim (a): "))
+            d = int(input("Oran (d): "))
+            n = int(input("Terim sayısı (n): "))
+            print("Aritmetik Seri Toplamı:", arithmetic_series_sum(a, d, n))
         elif choice == '7':
-            combination()
+            a = int(input("İlk terim (a): "))
+            r = float(input("Oran (r): "))
+            n = int(input("Terim sayısı (n): "))
+            print("Geometrik Seri Toplamı:", geometric_series_sum(a, r, n))
         elif choice == '8':
-            factorial()
+            n = int(input("n: "))
+            print("Fibonacci Sayısı:", fibonacci(n))
         elif choice == '9':
-            absolute_value()
+            n = int(input("n: "))
+            print("Asal mı:", prime_check(n))
         elif choice == '10':
-            square_root()
+            a = int(input("a: "))
+            b = int(input("b: "))
+            print("GCD:", gcd(a, b))
         elif choice == '11':
-            faulhaber_sum()
+            a = int(input("a: "))
+            b = int(input("b: "))
+            print("LCM:", lcm(a, b))
         elif choice == '12':
+            complex_operations_menu()
+        elif choice == '13':
             print("Çıkış yapılıyor...")
             break
         else:
-            print("Geçersiz seçim. Lütfen tekrar deneyiniz.")
+            print("Geçersiz seçenek. Lütfen tekrar deneyin.")
 
 if __name__ == "__main__":
-    main()
+    menu()
