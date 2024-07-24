@@ -6,7 +6,7 @@ def linear_solver(a, b):
     if a != 0:
         return -b / a
     else:
-        return "No solution" if b != 0 else "Infinite solutions"
+        return "Çözüm yok" if b != 0 else "Sonsuz çözüm"
 
 def quadratic_solver(a, b, c):
     """Quadratic Equation Solver: ax^2 + bx + c = 0"""
@@ -16,7 +16,7 @@ def quadratic_solver(a, b, c):
         root2 = (-b - math.sqrt(d)) / (2*a)
         return root1, root2
     else:
-        return "Complex Roots", None
+        return "Karmaşık kökler", None
 
 def cubic_solver(a, b, c, d):
     """Cubic Equation Solver: ax^3 + bx^2 + cx + d = 0"""
@@ -81,31 +81,31 @@ def complex_operations_menu():
         choice = input("Bir seçenek girin (1-5): ")
 
         if choice == '1':
-            real1 = float(input("Birinci sayının reel kısmı: "))
-            imag1 = float(input("Birinci sayının imaginer kısmı: "))
-            real2 = float(input("İkinci sayının reel kısmı: "))
-            imag2 = float(input("İkinci sayının imaginer kısmı: "))
+            real1 = float(input("Birinci sayının reel kısmını girin: "))
+            imag1 = float(input("Birinci sayının imaginer kısmını girin: "))
+            real2 = float(input("İkinci sayının reel kısmını girin: "))
+            imag2 = float(input("İkinci sayının imaginer kısmını girin: "))
             result = complex(real1, imag1) + complex(real2, imag2)
             print("Sonuç:", result)
         elif choice == '2':
-            real1 = float(input("Birinci sayının reel kısmı: "))
-            imag1 = float(input("Birinci sayının imaginer kısmı: "))
-            real2 = float(input("İkinci sayının reel kısmı: "))
-            imag2 = float(input("İkinci sayının imaginer kısmı: "))
+            real1 = float(input("Birinci sayının reel kısmını girin: "))
+            imag1 = float(input("Birinci sayının imaginer kısmını girin: "))
+            real2 = float(input("İkinci sayının reel kısmını girin: "))
+            imag2 = float(input("İkinci sayının imaginer kısmını girin: "))
             result = complex(real1, imag1) - complex(real2, imag2)
             print("Sonuç:", result)
         elif choice == '3':
-            real1 = float(input("Birinci sayının reel kısmı: "))
-            imag1 = float(input("Birinci sayının imaginer kısmı: "))
-            real2 = float(input("İkinci sayının reel kısmı: "))
-            imag2 = float(input("İkinci sayının imaginer kısmı: "))
+            real1 = float(input("Birinci sayının reel kısmını girin: "))
+            imag1 = float(input("Birinci sayının imaginer kısmını girin: "))
+            real2 = float(input("İkinci sayının reel kısmını girin: "))
+            imag2 = float(input("İkinci sayının imaginer kısmını girin: "))
             result = complex(real1, imag1) * complex(real2, imag2)
             print("Sonuç:", result)
         elif choice == '4':
-            real1 = float(input("Birinci sayının reel kısmı: "))
-            imag1 = float(input("Birinci sayının imaginer kısmı: "))
-            real2 = float(input("İkinci sayının reel kısmı: "))
-            imag2 = float(input("İkinci sayının imaginer kısmı: "))
+            real1 = float(input("Birinci sayının reel kısmını girin: "))
+            imag1 = float(input("Birinci sayının imaginer kısmını girin: "))
+            real2 = float(input("İkinci sayının reel kısmını girin: "))
+            imag2 = float(input("İkinci sayının imaginer kısmını girin: "))
             result = complex(real1, imag1) / complex(real2, imag2)
             print("Sonuç:", result)
         elif choice == '5':
@@ -133,53 +133,53 @@ def menu():
         choice = input("Bir seçenek girin (1-13): ")
 
         if choice == '1':
-            a = float(input("a: "))
-            b = float(input("b: "))
+            a = float(input("Denklemdeki a katsayısını girin (ax + b = 0): "))
+            b = float(input("Denklemdeki b katsayısını girin (ax + b = 0): "))
             root = linear_solver(a, b)
             print("Çözüm:", root)
         elif choice == '2':
-            a = float(input("a: "))
-            b = float(input("b: "))
-            c = float(input("c: "))
+            a = float(input("Denklemdeki a katsayısını girin (ax^2 + bx + c = 0): "))
+            b = float(input("Denklemdeki b katsayısını girin (ax^2 + bx + c = 0): "))
+            c = float(input("Denklemdeki c katsayısını girin (ax^2 + bx + c = 0): "))
             roots = quadratic_solver(a, b, c)
             print("Kökler:", roots)
         elif choice == '3':
-            a = float(input("a: "))
-            b = float(input("b: "))
-            c = float(input("c: "))
-            d = float(input("d: "))
+            a = float(input("Denklemdeki a katsayısını girin (ax^3 + bx^2 + cx + d = 0): "))
+            b = float(input("Denklemdeki b katsayısını girin (ax^3 + bx^2 + cx + d = 0): "))
+            c = float(input("Denklemdeki c katsayısını girin (ax^3 + bx^2 + cx + d = 0): "))
+            d = float(input("Denklemdeki d katsayısını girin (ax^3 + bx^2 + cx + d = 0): "))
             roots = cubic_solver(a, b, c, d)
             print("Kökler:", roots)
         elif choice == '4':
-            n = int(input("n: "))
+            n = int(input("Faktoriyelini hesaplamak istediğiniz sayıyı girin: "))
             print("Faktoriyel:", factorial(n))
         elif choice == '5':
-            n = int(input("n: "))
-            p = int(input("p: "))
+            n = int(input("Seri toplamının son terimini girin: "))
+            p = int(input("Seri toplamındaki kuvveti girin: "))
             print("Seri Toplamı:", faulhaber_sum(n, p))
         elif choice == '6':
-            a = int(input("İlk terim (a): "))
-            d = int(input("Oran (d): "))
-            n = int(input("Terim sayısı (n): "))
+            a = int(input("Aritmetik serinin ilk terimini girin: "))
+            d = int(input("Aritmetik serinin ortak farkını girin: "))
+            n = int(input("Aritmetik serideki terim sayısını girin: "))
             print("Aritmetik Seri Toplamı:", arithmetic_series_sum(a, d, n))
         elif choice == '7':
-            a = int(input("İlk terim (a): "))
-            r = float(input("Oran (r): "))
-            n = int(input("Terim sayısı (n): "))
+            a = int(input("Geometrik serinin ilk terimini girin: "))
+            r = float(input("Geometrik serinin ortak oranını girin: "))
+            n = int(input("Geometrik serideki terim sayısını girin: "))
             print("Geometrik Seri Toplamı:", geometric_series_sum(a, r, n))
         elif choice == '8':
-            n = int(input("n: "))
+            n = int(input("Hesaplamak istediğiniz Fibonacci sayısının indeksini girin: "))
             print("Fibonacci Sayısı:", fibonacci(n))
         elif choice == '9':
-            n = int(input("n: "))
+            n = int(input("Asal olup olmadığını kontrol etmek istediğiniz sayıyı girin: "))
             print("Asal mı:", prime_check(n))
         elif choice == '10':
-            a = int(input("a: "))
-            b = int(input("b: "))
+            a = int(input("GCD hesaplamak için birinci sayıyı girin: "))
+            b = int(input("GCD hesaplamak için ikinci sayıyı girin: "))
             print("GCD:", gcd(a, b))
         elif choice == '11':
-            a = int(input("a: "))
-            b = int(input("b: "))
+            a = int(input("LCM hesaplamak için birinci sayıyı girin: "))
+            b = int(input("LCM hesaplamak için ikinci sayıyı girin: "))
             print("LCM:", lcm(a, b))
         elif choice == '12':
             complex_operations_menu()
